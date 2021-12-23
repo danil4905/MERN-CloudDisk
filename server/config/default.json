@@ -1,5 +1,6 @@
 {
     "serverPORT": 5000,
     "dbUrl": "mongodb+srv://test:test@cloud.zl3ef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "secretKey": "cloud-disk"
+    "secretKey": "cloud-disk",
+    "filePath": "/Volumes/HDD/MERN-CloudDisk/server/files"
 }
