@@ -3,6 +3,8 @@ import { CONSTANTS } from "../constants/constants";
 const INITIAL_STATE = {
   files: [],
   currentDir: null,
+  popupDisplay: "none",
+  dirStack: [],
 };
 
 export default function fileReducer(state = INITIAL_STATE, action) {
@@ -18,6 +20,8 @@ export default function fileReducer(state = INITIAL_STATE, action) {
         ...state,
         popupDisplay: action.payload,
       };
+    case CONSTANTS.PUSH_TO_STACK:
+      return { ...state, dirStack: [...state.dirStack, action.payload] };
     default:
       return state;
   }
@@ -35,4 +39,8 @@ export const addFile = (file) => ({ type: CONSTANTS.ADD_FILE, payload: file });
 export const setPopupDisplay = (display) => ({
   type: CONSTANTS.SET_POPUP_DISPLAY,
   payload: display,
+});
+export const pushToStack = (dir) => ({
+  type: CONSTANTS.PUSH_TO_STACK,
+  payload: dir,
 });

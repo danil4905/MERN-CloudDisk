@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setFiles } from "../reducers/fileReducer";
+import { setFiles,addFile } from "../reducers/fileReducer";
 
 export function getFiles(dirId) {
   return async (dispatch) => {
