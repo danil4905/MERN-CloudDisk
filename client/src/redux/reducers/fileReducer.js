@@ -11,6 +11,13 @@ export default function fileReducer(state = INITIAL_STATE, action) {
       return { ...state, files: action.payload };
     case CONSTANTS.SET_CURRENT_DIR:
       return { ...state, currentDir: action.payload };
+    case CONSTANTS.ADD_FILE:
+      return { ...state, files: [...state.files, action.payload] };
+    case CONSTANTS.SET_POPUP_DISPLAY:
+      return {
+        ...state,
+        popupDisplay: action.payload,
+      };
     default:
       return state;
   }
@@ -23,4 +30,9 @@ export const setFiles = (files) => ({
 export const setCurrentDir = (dir) => ({
   type: CONSTANTS.SET_CURRENT_DIR,
   payload: dir,
+});
+export const addFile = (file) => ({ type: CONSTANTS.ADD_FILE, payload: file });
+export const setPopupDisplay = (display) => ({
+  type: CONSTANTS.SET_POPUP_DISPLAY,
+  payload: display,
 });
