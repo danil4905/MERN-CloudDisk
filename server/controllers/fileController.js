@@ -1,6 +1,6 @@
 const fileService = require("../services/fileService");
-const User = require("../models/User");
-const File = require("../models/File");
+const User = require("../config/models/User");
+const File = require("../config/models/File");
 
 class FileController {
   async createDir(req, res) {
@@ -31,7 +31,7 @@ class FileController {
         user: req.user.id,
         parent: req.query.parent,
       });
-      return res.json({ files });
+      return res.json(files);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Can not get files" });

@@ -7,7 +7,7 @@ const { check, validationResult } = require("express-validator");
 const authMiddleware = require("../middleware/auth.middleware");
 const router = new Router();
 const fileService = require("../services/fileService");
-const File = require("../models/File");
+const File = require("../config/models/File");
 
 router.post(
   "/registration",
