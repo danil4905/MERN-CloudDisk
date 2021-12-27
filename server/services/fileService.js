@@ -4,7 +4,8 @@ const config = require("config");
 
 class FileService {
   createDir(file) {
-    const filePath = `${config.get("filePath")}\\${file.user}\\${file.path}`;
+    const filePath = `${config.get("filePath")}/${file.user}/${file.path}`;
+    console.log(filePath);
     return new Promise((resolve, reject) => {
       try {
         if (!fs.existsSync(filePath)) {
@@ -14,9 +15,24 @@ class FileService {
           return reject({ message: "File already exist" });
         }
       } catch (e) {
+        console.log(e);
         return reject({ message: "File error" });
       }
     });
+  }
+  deleteFile(file) {
+    const path = this.getPath(file);
+    console.log(path);
+    if (file.type === "dir") {
+      fs.rmdirSync(path);
+    } else {
+      fs.unlinkSync(path + "/" + file.name);
+    }
+  }
+
+  getPath(file) {
+    console.log("Create path");
+    return config.get("filePath") + "/" + file.user + "/" + file.path;
   }
 }
 

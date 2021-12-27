@@ -4,7 +4,7 @@ import dirLogo from '../../../../assets/img/dir.svg'
 import fileLogo from '../../../../assets/img/file.svg'
 import { useDispatch, useSelector } from "react-redux";
 import { pushToStack, setCurrentDir } from "../../../../redux/reducers/fileReducer";
-import { downloadFile } from "../../../../redux/actions/file";
+import { downloadFile, deleteFile } from "../../../../redux/actions/file";
 
 const File = ({ file }) => {
 
@@ -21,6 +21,11 @@ const File = ({ file }) => {
         event.stopPropagation();
         downloadFile(file)
     }
+    function deleteClickHandler(e) {
+        e.stopPropagation()
+        dispatch(deleteFile(file))
+    }
+
 
     return (
         <div className={'file ' + file.type} onClick={() => openDirHandler(file)}>
@@ -29,7 +34,7 @@ const File = ({ file }) => {
             <div className="file__date">{file.date.slice(0, 10)}</div>
             <div className="file__size">{file.size}</div>
             {file.type !== 'dir' && <button onClick={(e) => downloadClickHandler(e)} className="file__btn file__download">download</button>}
-            <button className="file__btn file__delete">delete</button>
+            <button onClick={(e) => deleteClickHandler(e)} className="file__btn file__delete">delete</button>
         </div>
     );
 };
