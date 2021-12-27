@@ -32,17 +32,17 @@ const Disk = () => {
     }
     function drugEnterHendler(event) {
         event.preventDefault();
-        event.stopPropagination();
+        event.stopPropagation();
         setDrugEnter(true);
     }
     function drugLeaveHendler(event) {
         event.preventDefault();
-        event.stopPropagination();
+        event.stopPropagation();
         setDrugEnter(false);
     }
     function dropHendler(event) {
         event.preventDefault();
-        event.stopPropagination();
+        event.stopPropagation();
         let files = [...event.dataTransfer.files];
         console.log(files)
         files.forEach(file => dispatch(uploadFile(file, currentDir)))
@@ -50,7 +50,7 @@ const Disk = () => {
     }
 
 
-    return (drugEnter ?
+    return (!drugEnter ?
         <div className="disk" onDragOver={drugEnterHendler} onDragEnter={drugEnterHendler} onDragLeave={drugLeaveHendler}>
             <div className="disk__btns">
                 <button className="disk__back" onClick={() => backClickHandler()}>Назад</button>
