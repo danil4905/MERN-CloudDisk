@@ -1,11 +1,16 @@
 @import "../../../../utils/colors";
 
+.dir {
+    cursor: pointer;
+}
+
 .file {
     margin: 10px 0;
-    border-bottom: solid 2px $font-color ;
+    border-bottom: solid 2px $font-color;
     display: grid;
     grid-template-columns: 1fr 4fr repeat(4, 1fr);
     align-items: center;
+    transition: 0.2s;
 
     &:hover {
         transform: scale(1.02);
@@ -20,8 +25,31 @@
         justify-self: center;
     }
 
+    &__btn {
+        display: none;
+        cursor: pointer;
+    }
+
     &__size {
         grid-column-start: 6;
         justify-self: center;
+    }
+
+    &:hover &__date {
+        grid-column-start: 3;
+    }
+
+    &:hover &__size {
+        grid-column-start: 4;
+    }
+
+    &:hover &__download {
+        grid-column-start: 5;
+        display: block;
+    }
+
+    &:hover &__delete {
+        grid-column-start: 6;
+        display: block;
     }
 }

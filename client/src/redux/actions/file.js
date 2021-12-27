@@ -74,3 +74,24 @@ export function uploadFile(file, dirId) {
     }
   };
 }
+
+export async function downloadFile(file) {
+  const response = await fetch(
+    `http://localhost:5000/api/files/download?id=${file._id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  if (response.status === 200) {
+    const blob = await response.blob(); // получаем блоб файла (подобный физческому файлу объект)
+    const downloadUrl = window.URL.createObjectURL(blob); // создаем ссылку (файл в бинарном фиде)
+    const link = document.createElement("a"); // создается невидимая ссылка
+    link.href = downloadUrl;
+    link.download = file.name; // в свойсвах download указывается имя файла
+    document.body.appendChild(link);
+    link.click(); // скачивается
+    link.remove();
+  }
+}
