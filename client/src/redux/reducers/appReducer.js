@@ -6,8 +6,10 @@ const INITIAL_STATE = {
 
 export default function appReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case CONSTANTS.SHOW_LOADER: return {...state, loader: true}
-        case CONSTANTS.HIDE_LOADER: return {...state, loader: false}
+        case CONSTANTS.SHOW_LOADER:
+            return {...state, loader: true}
+        case CONSTANTS.HIDE_LOADER:
+            return {...state, loader: false}
         default:
             return state
     }

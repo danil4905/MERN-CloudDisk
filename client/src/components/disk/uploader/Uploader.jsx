@@ -1,8 +1,8 @@
 import React from 'react';
 import UploadFile from "./UploadFile";
 import './uploader.scss'
-import { useDispatch, useSelector } from "react-redux";
-import { hideUploader } from "../../../redux/reducers/uploadReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {hideUploader} from "../../../redux/reducers/uploadReducer";
 
 const Uploader = () => {
     const files = useSelector(state => state.upload.files)
@@ -16,7 +16,7 @@ const Uploader = () => {
                 <button className="uploader__close" onClick={() => dispatch(hideUploader())}>X</button>
             </div>
             {files.map(file =>
-                <UploadFile key={file.id} file={file} />
+                <UploadFile key={file.id} file={file}/>
             )}
         </div>
     );
