@@ -18,15 +18,24 @@
 
   input {
     margin: 10px 20px;
+    outline: black;
+    font-size: 16px;
   }
 
   &__btn {
+    cursor: pointer;
+    transition: 0.2s ease;
     border: none;
     background-color: $font-color;
     border-radius: 8px;
     color: white;
     font-weight: 700;
+    font-size: 16px;
     padding: 5px 10px;
     margin-top: 10px;
+
+    &:hover {
+      background-color: darken($font-color, 10)
+    }
   }
 }

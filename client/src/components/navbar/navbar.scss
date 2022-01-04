@@ -16,6 +16,11 @@
   &__login {
     margin-left: auto;
     margin-right: 20px;
+    transition: 0.2s ease;
+    text-decoration: none;
+    &:hover {
+      text-decoration: 1px solid $font-color;
+    }
   }
 
   &__search {
