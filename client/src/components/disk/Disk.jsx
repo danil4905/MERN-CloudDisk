@@ -4,7 +4,7 @@ import {getFiles, uploadFile} from "../../redux/actions/file";
 import FileList from "./fileList/FileList";
 import './disk.scss'
 import Popup from "./Popup";
-import {setPopupDisplay, setCurrentDir} from "../../redux/reducers/fileReducer";
+import {setPopupDisplay,setFileView, setCurrentDir} from "../../redux/reducers/fileReducer";
 import Uploader from "./uploader/Uploader";
 
 
@@ -82,6 +82,8 @@ const Disk = () => {
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>
                     </select>
+                    <button className="disk__plate" onClick={() => dispatch(setFileView('plate'))}/>
+                    <button className="disk__list" onClick={() => dispatch(setFileView('list'))}/>
                 </div>
                 <FileList/>
                 <Popup/>

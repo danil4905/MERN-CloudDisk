@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     currentDir: null,
     popupDisplay: "none",
     dirStack: [],
+    view: 'list'
 };
 
 export default function fileReducer(state = INITIAL_STATE, action) {
@@ -27,6 +28,10 @@ export default function fileReducer(state = INITIAL_STATE, action) {
                 ...state,
                 files: [...state.files.filter((file) => file._id !== action.payload)],
             };
+        case CONSTANTS.SET_VIEW:
+            return {
+                ...state, view: action.payload,
+            }
         default:
             return state;
     }
@@ -53,3 +58,5 @@ export const deleteFileAction = (dirId) => ({
     type: CONSTANTS.DELETE_FILE,
     payload: dirId,
 });
+export const setFileView = (payload) => ({type: CONSTANTS.SET_VIEW, payload})
+
