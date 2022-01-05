@@ -4,7 +4,7 @@ import {getFiles, uploadFile} from "../../redux/actions/file";
 import FileList from "./fileList/FileList";
 import './disk.scss'
 import Popup from "./Popup";
-import {setPopupDisplay,setFileView, setCurrentDir} from "../../redux/reducers/fileReducer";
+import {setPopupDisplay, setFileView, setCurrentDir} from "../../redux/reducers/fileReducer";
 import Uploader from "./uploader/Uploader";
 
 
@@ -68,6 +68,7 @@ const Disk = () => {
             <div className="disk" onDragOver={drugEnterHendler} onDragEnter={drugEnterHendler}
                  onDragLeave={drugLeaveHendler}>
                 <div className="disk__btns">
+                    <div className='disk__controlls'>
                     <button className="disk__back" onClick={() => backClickHandler()}>Назад</button>
                     <button className="disk__create" onClick={() => showPopupHandler()}>Создать папку</button>
                     <div className="disk__upload">
@@ -75,15 +76,18 @@ const Disk = () => {
                         <input multiple={true} onChange={(event) => fileUploadHandler(event)} type="file"
                                id="disk__upload-input" className="disk__upload-input"/>
                     </div>
-                    <select value={sort}
-                            onChange={(e) => setSort(e.target.value)}
-                            className='disk__select'>
-                        <option value="name">По имени</option>
-                        <option value="type">По типу</option>
-                        <option value="date">По дате</option>
-                    </select>
-                    <button className="disk__plate" onClick={() => dispatch(setFileView('plate'))}/>
-                    <button className="disk__list" onClick={() => dispatch(setFileView('list'))}/>
+                    </div>
+                    <div className='disk__views'>
+                        <select value={sort}
+                                onChange={(e) => setSort(e.target.value)}
+                                className='disk__select'>
+                            <option value="name">По имени</option>
+                            <option value="type">По типу</option>
+                            <option value="date">По дате</option>
+                        </select>
+                        <button className="disk__plate" onClick={() => dispatch(setFileView('plate'))}/>
+                        <button className="disk__list" onClick={() => dispatch(setFileView('list'))}/>
+                    </div>
                 </div>
                 <FileList/>
                 <Popup/>
