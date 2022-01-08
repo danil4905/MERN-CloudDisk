@@ -7,6 +7,8 @@ import Login from './authorization/Login';
 import {useSelector, useDispatch} from 'react-redux';
 import {auth} from '../redux/actions/user';
 import Disk from "./disk/Disk";
+import Profile from "./profile/Profile";
+
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
                         :
                         <Switch>
                             <Route exact path="/" component={Disk}/>
+                            <Route exact path="/profile" component={Profile}/>
                             <Redirect to="/"/>
                         </Switch>
                     }

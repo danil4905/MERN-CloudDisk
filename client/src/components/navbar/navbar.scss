@@ -22,6 +22,11 @@
       text-decoration: 1px solid $font-color;
     }
   }
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 
   &__search {
     width: 200px;
