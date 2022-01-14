@@ -1,0 +1,12 @@
+.profile {
+  display: block;
+  &__controls {
+    display: flex;
+    margin: 20px;
+    &-back {
+      margin-right: 15px;
+      cursor: pointer;
+
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {deleteAvatar, uploadAvatar} from "../../redux/actions/user";
+import {NavLink} from "react-router-dom";
+import './profile.scss'
 
 const Profile = () => {
     const dispatch = useDispatch()
@@ -11,8 +13,11 @@ const Profile = () => {
     }
 
     return (
-        <div>
-            <button onClick={() => dispatch(deleteAvatar())}>Удалить аватар</button>
+        <div className="container profile">
+            <div className="profile__controls">
+                <NavLink className="profile__controls-back" to="/">Назад</NavLink>
+                <button onClick={() => dispatch(deleteAvatar())} className="profile__controls-delete">Удалить аватар</button>
+            </div>
             <input accept="image/*" onChange={e => changeHandler(e)} type="file" placeholder="Загрузить аватар"/>
         </div>
     );

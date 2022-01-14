@@ -16,14 +16,13 @@ const Navbar = ({isAuth, dispatch}) => {
     const currentUser = useSelector(state => state.user.currentUser)
     const avatar = currentUser.avatar ? `${API_URL + currentUser.avatar}` : avatarLogo
 
-
     function searchChangeHandler(e) {
         setSearchName(e.target.value)
-        if (searchTimeout != false) {
+        if (searchTimeout !== false) {
             clearTimeout(searchTimeout)
         }
         dispatch(showLoader())
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             setSearchTimeout(setTimeout((value) => {
                 dispatch(searchFiles(value));
             }, 500, e.target.value))
@@ -35,8 +34,10 @@ const Navbar = ({isAuth, dispatch}) => {
     return (
         <div className="navbar">
             <div className="container">
-                <img src={Logo} alt="" className="navbar__logo"/>
-                <div className="navbar__header">MERN CLOUD</div>
+                <NavLink to='/' className="navbar__link">
+                    <img src={Logo} alt="" className="navbar__logo"/>
+                    <div className="navbar__header">CLOUD DISK</div>
+                </NavLink>
                 {isAuth && <input
                     value={searchName}
                     onChange={e => searchChangeHandler(e)}
@@ -45,7 +46,7 @@ const Navbar = ({isAuth, dispatch}) => {
                     placeholder="Название файла..."/>}
                 {!isAuth && <div className="navbar__login"><NavLink to="/login">Войти</NavLink></div>}
                 {!isAuth &&
-                    <div className="navbar__registration"><NavLink to="/registration">Регистрация</NavLink></div>}
+                <div className="navbar__registration"><NavLink to="/registration">Регистрация</NavLink></div>}
                 {isAuth && <div className="navbar__login" onClick={() => dispatch(logOut())}>Выход</div>}
                 {isAuth && <NavLink to='/profile'>
                     <img className="navbar__avatar" src={avatar} alt="logo"/>

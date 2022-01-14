@@ -14,10 +14,10 @@ class FileController {
             const parentFile = await File.findOne({_id: parent});
             if (!parentFile) {
                 file.path = name;
-                await fileService.createDir(file);
+                await fileService.createDir(req, file);
             } else {
                 file.path = `${parentFile.path}/${file.name}`;
-                await fileService.createDir(file);
+                await fileService.createDir(req, file);
                 parentFile.childs.push(file._id);
                 await parentFile.save();
             }
@@ -70,11 +70,11 @@ class FileController {
 
             let path;
             if (parent) {
-                path = `${config.get("filePath")}/${user._id}/${parent.path}/${
+                path = `${req.filePath}\\${user._id}\\${parent.path}\\${
                     file.name
                 }`;
             } else {
-                path = `${config.get("filePath")}/${user._id}/${file.name}`;
+                path = `${req.filePath}\\${user._id}\\${file.name}`;
             }
             if (fs.existsSync(path)) {
                 return res.status(400).json({message: "File already exist"});
@@ -86,7 +86,7 @@ class FileController {
                 name: file.name,
                 type,
                 size: file.size,
-                path: parent?.path,
+                path: parent ? parent._id : null,
                 parent: parent?._id,
                 user: user._id,
             });
@@ -104,7 +104,7 @@ class FileController {
         try {
             const file = await File.findOne({_id: req.query.id, user: req.user.id});
             console.log(file);
-            const path = fileService.getPath(file);
+            const path = fileService.getPath(req, file);
             if (fs.existsSync(path)) {
                 return res.download(path, file.name);
             }
@@ -121,8 +121,7 @@ class FileController {
             if (!file) {
                 return res.status(400).json({message: "file not found"});
             }
-            console.log(file);
-            fileService.deleteFile(file);
+            fileService.deleteFile(req, file);
             await file.remove();
             return res.json({
                 message: `${file.type === "dir" ? "Dir" : "File"} was deleted`,

@@ -59,7 +59,7 @@ const Disk = () => {
     if (loader) {
         return (
             <div className="loader">
-                <div className="lds-dual-ring"></div>
+                <div className="lds-dual-ring"/>
             </div>
         )
     }
@@ -69,13 +69,13 @@ const Disk = () => {
                  onDragLeave={drugLeaveHendler}>
                 <div className="disk__btns">
                     <div className='disk__controlls'>
-                    <button className="disk__back" onClick={() => backClickHandler()}>Назад</button>
-                    <button className="disk__create" onClick={() => showPopupHandler()}>Создать папку</button>
-                    <div className="disk__upload">
-                        <label htmlFor="disk__upload-input" className="disk__upload-label">Загрузить файл</label>
-                        <input multiple={true} onChange={(event) => fileUploadHandler(event)} type="file"
-                               id="disk__upload-input" className="disk__upload-input"/>
-                    </div>
+                        <button className="disk__back" onClick={() => backClickHandler()}>Назад</button>
+                        <button className="disk__create" onClick={() => showPopupHandler()}>Создать папку</button>
+                        <div className="disk__upload">
+                            <label htmlFor="disk__upload-input" className="disk__upload-label">Загрузить файл</label>
+                            <input multiple={true} onChange={(event) => fileUploadHandler(event)} type="file"
+                                   id="disk__upload-input" className="disk__upload-input"/>
+                        </div>
                     </div>
                     <div className='disk__views'>
                         <select value={sort}

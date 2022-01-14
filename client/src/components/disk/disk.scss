@@ -7,10 +7,12 @@
     display: flex;
     justify-content: space-between;
   }
-  &__controlls,&__views {
+
+  &__controlls, &__views {
     display: flex;
   }
-  &__back,&__create {
+
+  &__back, &__create {
     cursor: pointer;
   }
 
@@ -28,6 +30,7 @@
     cursor: pointer;
     margin-left: 10px;
   }
+
   &__list {
     background-image: url("../../assets/img/list.svg");
     width: 15px;
@@ -35,6 +38,7 @@
     cursor: pointer;
 
   }
+
   &__plate {
     background-image: url("../../assets/img/plate.svg");
     width: 15px;

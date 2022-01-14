@@ -9,7 +9,6 @@ import {hideLoader, showLoader} from "../reducers/appReducer";
 import {API_URL} from "../../config";
 
 
-
 export function getFiles(dirId, sort) {
     return async (dispatch) => {
         try {
