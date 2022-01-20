@@ -10,7 +10,7 @@ import {API_URL} from "../../config";
 
 const Profile = (props) => {
     const dispatch = useDispatch()
-    const[editMode,setEditMode] = useState(true)
+    const[editMode,setEditMode] = useState(false)
     const user = useSelector(state => state.user.currentUser)
     const styleImage = {
     backgroundImage: `url(${API_URL}static/${user.avatar})`,
@@ -37,8 +37,8 @@ const Profile = (props) => {
                     </div>
                 </div>
                 {!editMode
-                    ? <ProfileInfo email={user.email} name={user.name} surname={user.surname}/>
-                    :<EditProfile email={user.email} name={user.name} surname={user.surname}/>
+                    ? <ProfileInfo email={user.email} name={user.name} surname={user.surname} setEdit={setEditMode}/>
+                    :<EditProfile email={user.email} name={user.name} surname={user.surname} setEdit={setEditMode}/>
                 }
             </div>
         </div>

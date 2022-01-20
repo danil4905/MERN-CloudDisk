@@ -5,6 +5,7 @@ const User = require("../config/models/User");
 const File = require("../config/models/File");
 const Uuid = require('uuid')
 const path = require('path');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 class FileController {
     async createDir(req, res) {
@@ -35,18 +36,19 @@ class FileController {
             let files
             switch (sort) {
                 case 'name':
-                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({name: 1})
+                    files = await File.find({user: new ObjectId(req.user.id), parent: req.query.parent}).sort({name: 1})
                     break
                 case 'type':
-                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({type: 1})
+                    files = await File.find({user: new ObjectId(req.user.id), parent: req.query.parent}).sort({type: 1})
                     break
                 case 'date':
-                    files = await File.find({user: req.user.id, parent: req.query.parent}).sort({date: 1})
+                    files = await File.find({user: new ObjectId(req.user.id), parent: req.query.parent}).sort({date: 1})
                     break
                 default:
-                    files = await File.find({user: req.user.id, parent: req.query.parent})
+                    files = await File.find({user: new ObjectId(req.user.id), parent: req.query.parent})
                     break;
             }
+            console.log('MY FILES !!!',new ObjectId(req.user.id), files)
             return res.json(files);
         } catch (e) {
             console.log(e);

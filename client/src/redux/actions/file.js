@@ -9,24 +9,26 @@ import {hideLoader, showLoader} from "../reducers/appReducer";
 import {API_URL} from "../../config";
 
 
-export function getFiles(dirId, sort) {
+export function getFiles(dirId, sort, user) {
+    console.log(dirId, sort, user)
     return async (dispatch) => {
         try {
             dispatch(showLoader())
             let url = `${API_URL}api/files`
             if (dirId) {
-                url = `${API_URL}api/files?parent=${dirId}`
+                url = `${API_URL}api/files?user=${user}&parent=${dirId}`
             }
             if (sort) {
-                url = `${API_URL}api/files?sort=${sort}`
+                url = `${API_URL}api/files?user=${user}&sort=${sort}`
             }
             if (dirId && sort) {
-                url = `${API_URL}api/files?parent=${dirId}&sort=${sort}`
+                url = `${API_URL}api/files?user=${user}&parent=${dirId}&sort=${sort}`
             }
             const response = await axios.get(url, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             });
             dispatch(setFiles(response.data))
+            console.log(response.data)
         } catch (e) {
             alert(e.response.data.message)
         } finally {

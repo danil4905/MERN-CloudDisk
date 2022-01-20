@@ -12,13 +12,15 @@ const Disk = () => {
     const dispatch = useDispatch()
     const currentDir = useSelector(state => state.files.currentDir)
     const dirStack = useSelector(state => state.files.dirStack)
+    const user = useSelector(state => state.user.currentUser)
     const loader = useSelector(state => state.app.loader)
     const [drugEnter, setDrugEnter] = useState(false);
     const [sort, setSort] = useState('type')
 
 
     useEffect(() => {
-        dispatch(getFiles(currentDir))
+        dispatch(getFiles(currentDir,sort,user))
+        console.log('GETFILES')
     }, [currentDir])
 
     function showPopupHandler() {
