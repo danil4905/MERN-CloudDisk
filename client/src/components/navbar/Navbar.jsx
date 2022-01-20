@@ -14,7 +14,9 @@ const Navbar = ({isAuth, dispatch}) => {
     const [searchName, setSearchName] = useState('')
     const [searchTimeout, setSearchTimeout] = useState(false)
     const currentUser = useSelector(state => state.user.currentUser)
-    const avatar = currentUser.avatar ? `${API_URL + currentUser.avatar}` : avatarLogo
+    const avatar = currentUser.avatar ? `${API_URL + 'static/' + currentUser.avatar}` : avatarLogo
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    console.log(currentUser)
 
     function searchChangeHandler(e) {
         setSearchName(e.target.value)
@@ -33,7 +35,7 @@ const Navbar = ({isAuth, dispatch}) => {
 
     return (
         <div className="navbar">
-            <div className="container">
+            <div className="container navbar__container">
                 <NavLink to='/' className="navbar__link">
                     <img src={Logo} alt="" className="navbar__logo"/>
                     <div className="navbar__header">CLOUD DISK</div>
@@ -47,10 +49,22 @@ const Navbar = ({isAuth, dispatch}) => {
                 {!isAuth && <div className="navbar__login"><NavLink to="/login">Войти</NavLink></div>}
                 {!isAuth &&
                 <div className="navbar__registration"><NavLink to="/registration">Регистрация</NavLink></div>}
-                {isAuth && <div className="navbar__login" onClick={() => dispatch(logOut())}>Выход</div>}
-                {isAuth && <NavLink to='/profile'>
-                    <img className="navbar__avatar" src={avatar} alt="logo"/>
-                </NavLink>}
+                {isAuth && <div className='navbar__user'>
+                    <div className="navbar__name">{currentUser.name}</div>
+                    <button className='navbar__avatar' onClick={() => setModalIsOpen(!modalIsOpen)}>
+                        <img className="navbar__avatar-item" src={avatar} alt="logo"/>
+                        <div className='navbar__modal' style={modalIsOpen ? {display: 'block'} : {display: 'none'}}>
+                            <ul className='modal__list'>
+                                <li className='modal__list-item'>
+                                    <NavLink to='/profile'>Профиль</NavLink>
+                                </li>
+                                <li className='modal__list-item'>
+                                    <button className="navbar__logout" onClick={() => dispatch(logOut())}>Выход</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </button>
+                </div>}
             </div>
         </div>
     );

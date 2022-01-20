@@ -26,12 +26,15 @@ class FileService {
         if (file.type === "dir") {
             fs.rmdirSync(path);
         } else {
-            fs.unlinkSync(path + "\\" + file.name);
+            fs.unlinkSync(path);
         }
     }
 
     getPath(req, file) {
-        return req.filePath + "\\" + file.user + "\\" + file.path;
+        return req.filePath + '\\' + file.user + '\\' + file.path;
+    }
+    getStaticPath(req) {
+        return req.staticPath;
     }
 }
 

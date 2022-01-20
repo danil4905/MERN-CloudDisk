@@ -3,12 +3,14 @@ import {setUser} from "../reducers/userReducer";
 import {API_URL} from "../../config";
 
 
-export const registration = async (email, password) => {
+export const registration = async (email, password, name, surname) => {
     try {
         const response = await axios.post(
             `${API_URL}api/auth/registration`,
             {
                 email,
+                name,
+                surname,
                 password,
             }
         );

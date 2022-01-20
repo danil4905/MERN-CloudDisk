@@ -25,7 +25,7 @@ router.post(
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Uncorrect request", errors});
             }
-            const {email, password} = req.body;
+            const {email, name, surname, password} = req.body;
             const candidate = await User.findOne({email});
             if (candidate) {
                 return res
@@ -33,7 +33,7 @@ router.post(
                     .json({message: `User with email ${email} already exist!`});
             }
             const hashPassword = await bcrypt.hash(password, 4);
-            const user = new User({email, password: hashPassword});
+            const user = new User({email, name, surname, password: hashPassword});
             await user.save();
             await fileService.createDir(req, new File({user: user.id, name: ""}));
             return res.json({message: "User was created!"});
@@ -65,6 +65,8 @@ router.post("/login", async (req, res) => {
                 diskSpace: user.diskSpace,
                 usedSpace: user.usedSpace,
                 avatar: user.avatar,
+                name: user.name,
+                surname: user.surname
             },
         });
     } catch (error) {
@@ -86,6 +88,8 @@ router.get("/auth", authMiddleware, async (req, res) => {
                 diskSpace: user.diskSpace,
                 usedSpace: user.usedSpace,
                 avatar: user.avatar,
+                name: user.name,
+                surname: user.surname,
             },
         });
     } catch (e) {

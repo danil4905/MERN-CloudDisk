@@ -6,13 +6,15 @@
   justify-content: center;
   background-color: white;
   width: 100%;
-
+  &__container {
+    justify-content: space-between;
+  }
   &__header {
     margin-left: 10px;
     font-size: 24px;
     font-weight: 700;
   }
-  &__link {
+  &__link,&__user {
     display: flex;
     align-items: center;
   }
@@ -26,16 +28,45 @@
       text-decoration: 1px solid $font-color;
     }
   }
+  &__logout {
+    border: none;
+    background-color: white;
+  }
+  &__name {
+    margin-right: 15px;
+  }
 
   &__avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    &-item {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
   }
 
   &__search {
     width: 200px;
     margin-left: 30px;
+  }
+  &__modal {
+    position: absolute;
+    background-color: white;
+  }
+
+}
+.modal__list {
+  width: 100%;
+  &-item {
+    padding: 5px;
+    &:hover {
+      background-color: darkgrey;
+      button {
+        background-color: darkgrey;
+      }
+    }
   }
 }
 

@@ -14,11 +14,15 @@ body {
 a {
   text-decoration: none;
 }
-
+button {
+  cursor: pointer;
+}
 #root {
   width: 100%;
 }
-
+li {
+  list-style-type: none;
+}
 .app {
   display: flex;
   flex-direction: column;

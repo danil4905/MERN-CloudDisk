@@ -4,7 +4,7 @@ const fs = require("fs");
 const User = require("../config/models/User");
 const File = require("../config/models/File");
 const Uuid = require('uuid')
-
+const path = require('path');
 
 class FileController {
     async createDir(req, res) {
@@ -70,27 +70,30 @@ class FileController {
 
             let path;
             if (parent) {
-                path = `${req.filePath}\\${user._id}\\${parent.path}\\${
-                    file.name
-                }`;
+                path = `${req.filePath}\\${user._id}\\${parent.path}\\${file.name}`;
             } else {
                 path = `${req.filePath}\\${user._id}\\${file.name}`;
             }
+            console.log('ПУТЬ ЗАГРУЗКИ',path)
             if (fs.existsSync(path)) {
                 return res.status(400).json({message: "File already exist"});
             }
-            file.mv(path);
-
+            await file.mv(path);
+            console.log(path);
             const type = file.name.split(".").pop();
+            let filePath = file.name
+            if (parent) {
+                filePath = parent.path + "\\" + file.name
+            }
             const dbFile = new File({
                 name: file.name,
                 type,
                 size: file.size,
-                path: parent ? parent._id : null,
+                path: filePath,
                 parent: parent?._id,
                 user: user._id,
             });
-
+            console.log(req,dbFile,path,parent)
             await dbFile.save();
             await user.save();
             res.json(dbFile);
@@ -149,7 +152,11 @@ class FileController {
             const file = req.files.file
             const user = await User.findById(req.user.id)
             const avatarName = Uuid.v4() + ".jpg"
-            file.mv(config.get('staticPath') + "/" + avatarName)
+            let movePath = path.join(__dirname, '../static')
+            console.log(movePath + "\\" + avatarName)
+            console.log(file)
+            await file.mv(`${movePath}\\${avatarName}`)
+            console.log('YA ZDES')
             user.avatar = avatarName
             await user.save()
             return res.json(user)
@@ -162,7 +169,9 @@ class FileController {
     async deleteAvatar(req, res) {
         try {
             const user = await User.findById(req.user.id)
-            fs.unlinkSync(config.get('staticPath') + "/" + user.avatar)
+            let movePath = path.join(__dirname, '../static')
+            console.log(movePath + "\\" + user.avatar)
+            fs.unlinkSync( movePath + "\\" + user.avatar)
             user.avatar = null
             await user.save()
             return res.json(user)
